@@ -1,0 +1,45 @@
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+/* Animated Menu Bars */
+.corra-animated-menu-bar{
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+.corra-animated-menu-bar-container {
+    display: inline-block;
+    cursor: pointer;
+}
+/* Rotate first bar */
+.corra-animated-menu-bar-change .corra-bar1 {
+    -webkit-transform: rotate(-45deg) translate(-9px, 6px) ;
+    transform: rotate(-45deg) translate(-9px, 6px) ;
+}
+/* Fade out the second bar */
+.corra-animated-menu-bar-change .corra-bar2 {
+    opacity: 0;
+}
+/* Rotate last bar */
+.corra-animated-menu-bar-change .corra-bar3 {
+    -webkit-transform: rotate(45deg) translate(-8px, -8px) ;
+    transform: rotate(45deg) translate(-8px, -8px) ;
+}
+.corra-triangle-right {
+    width: 0;
+    height: 0;
+    border-top: 50px solid transparent;
+    border-left: 100px solid red;
+    border-bottom: 50px solid transparent;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 100px 0 100px 200px;
+    border-color: transparent transparent transparent #007bff;
+}
+.corra-table-container::-webkit-scrollbar {
+    display: none;
+}

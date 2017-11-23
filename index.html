@@ -1,0 +1,332 @@
+<!--
+============================
+Screen/Document/Body/HTML
+	Height: 729px
+	Width: 1,366px
+===========================
+Address Bar
+	Height: 4.25% = 31px
+	Width: 1,366px
+Header
+	Height: 8.6% = 63px
+	Width: 1,366px
+Footer
+	Height: 20% = 146px
+	Width: 1,366px
+Top Nav
+	Height: 6% = 44px
+	Width: 1,366px
+Main Div
+	Height: 61% = 445px
+	Width: 1,366px
+==========================
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Core Retail App</title>
+        <meta charset="UTF-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--Favicon-->
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <!--W3 css-->
+        <link rel="stylesheet" href="css/w3/w3_2.8.css">
+        <link rel="stylesheet" href="css/w3/colors.css">
+        <link rel="stylesheet" href="css/w3/colors-ana.css">
+        <link rel="stylesheet" href="css/w3/colors-camo.css">
+        <link rel="stylesheet" href="css/w3/colors-highway.css">
+        <link rel="stylesheet" href="css/w3/colors-safety.css">
+        <link rel="stylesheet" href="css/w3/colors-signal.css">
+        <link rel="stylesheet" href="css/w3/colors-vivid.css">
+        <link rel="stylesheet" href="css/w3/colors-theme.css">
+        
+        <!--Corra css-->
+        <link rel="stylesheet" href="css/corra/popup.css">
+        <link rel="stylesheet" href="css/corra/flexbox.css">
+        <link rel="stylesheet" href="css/corra/scroller.css">
+        <link rel="stylesheet" href="css/corra/toggle-switch.css">
+        <link rel="stylesheet" href="css/corra/w3-supplementary.css">
+        <link rel="stylesheet" href="css/corra/corra.css">
+        <link rel="stylesheet" href="css/corra/snackbar.css">
+        <!--Hover css-->
+        <link rel="stylesheet" href="css/hover/hover.css">
+        
+        <!--Font Awesome-->
+        <link rel="stylesheet" 
+              href="fonts/font-awesome/font-awesome_4.7.0.min.css">        
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+        
+        <!--Google fonts-->
+        <link rel="stylesheet" href="fonts/google/fonts.css?family=Raleway">
+        
+        <style>
+            body,h1,h2,h3,h4,h5,h6 {
+                font-family: Raleway, "Sans Serif", "Open Sans Light", Helvetica, Arial,sans-serif,"Microsoft Sans Serif", "Segoe UI", Lato, sans-serif
+            }
+            .w3-navbar,h1,button {
+                font-family: "Montserrat", "sans-serif"
+            }
+            .ui-effects-transfer {
+                border: 1px dotted black;
+            }
+        </style>
+        <!--JQuery-->
+        <script src="js/jquery/jquery-3.1.1.min.js"></script>
+        <script src="js/jquery/jquery-color-2.1.2.js"></script>
+        <script src="js/jquery/jquery-ui-1.12.1.min.js"></script>
+        <!--W3Data-->        
+        <script src="js/w3data/w3data_1.2.js"></script>        
+        <script src="js/init/ai.js"></script>
+        <script src="js/polyfills/polyfill.js"></script>
+        <script src="js/services/service.js"></script>
+        <script src="js/classes/Fetcher.js"></script>
+        <script src="js/classes/DataAccess.js"></script>
+        <script src="js/classes/MenuPage.js"></script>
+        <script src="js/classes/PageMarkup.js"></script>
+        <script src="js/classes/PageModel.js"></script>
+        <script src="js/classes/Modal.js"></script>
+        <script src="js/classes/QueryMaker.js"></script>        
+        <script src="js/models/model.js"></script>        
+        <script src="js/modules/module.js"></script>        
+        <script src="js/models/idb.js"></script>
+        <script src="js/views/view.js"></script>
+        <script src="js/controllers/controller.js"></script>
+        <script src="js/utils/defutil.js"></script>
+        <script src="js/utils/modutil.js"></script>
+        <script src="js/utils/viewutil.js"></script>
+        <script src="js/utils/typeutil.js"></script>
+        <script src="js/utils/controlutil.js"></script>
+        <script src="js/utils/showutil.js"></script>
+        <script src="js/utils/hideutil.js"></script>
+        <script src="js/utils/modalutil.js"></script>
+        <script src="js/utils/htmlutil.js"></script>
+        <script src="js/utils/datautil.js"></script>
+        <script src="js/utils/markuputil.js"></script>
+        <script src="js/utils/styleutil.js"></script>
+        <script src="js/utils/sqlutil.js"></script>
+        <script src="js/utils/speechutil.js"></script>
+        <script src="js/misc/misc.js"></script>        
+        <script src="js/init/def.js"></script>
+        <script src="js/init/init.js"></script>
+        <script src="js/init/loader.js"></script>        
+        <script>
+            $(document).ready(function () {
+                // start progress bar
+                //AI.progress.init();
+                //initServiceWorker()                                
+                //.catch(function (err) {
+                    //console.log("error initializing app | " + Globlist.filesErr + " " + err.stack);
+                //});
+            });
+        </script>
+    </head>
+    
+    <body>
+        <!--Main top-bar is visible across all interfaces-->
+        <!--<ul id="ulTopNav" class="w3-navbar w3-card-2 w3-large w3-grey" style="height:
+        5%; top: 0;">
+            <li><a href="#" class="w3-green w3-hover-white" tabindex="-1">
+                Corra POS</a>
+            </li>
+            <li><a href="#" tabindex="-1">Omazim.com</a></li>
+            <li><a href="#" tabindex="-1">African Storefronts</a></li>
+            <li><a href="#" tabindex="-1">Aprico.com</a></li>
+            <li><a href="#" tabindex="-1">Tananamart.com</a></li>
+            <li class=" w3-right">
+                <button id="cmdGoOnline" type="button" class="w3-btn w3-highway-green                    w3-hover-white" tabindex="-1">Go Online
+                </button>
+            </li>            
+        </ul>-->
+      
+        <!--App-->
+        <div id="divApp" class="w3-display-container" style="height: 84%;">
+            <!--<span class="popup"></span>-->
+            <!--Header - permanently visible-->
+            <div id="divHeader" class="w3-container w3-theme-deep-purple w3-border-deep-purple w3-border" style="height: 10%; width: 100%;">
+                <!--Left Pane Opener-->                
+                <div id="spanLeftPaneOpener" class="corra-animated-menu-bar-container w3-padding-small" style="width: 5%; height: 7.5%; display: none; left: 0; position: fixed;">
+                    <div class="w3-white corra-animated-menu-bar corra-bar1"></div>
+                    <div class="w3-white corra-animated-menu-bar corra-bar2"></div>
+                    <div class="w3-white corra-animated-menu-bar corra-bar3"></div>
+                </div>
+                <!--Page Banner-->
+                <span id="divPageBanner" class="w3-col w3-container w3-animate-zoom w3-padding-small" style="width: 22%; height: 7.5%; margin-left: 4%; position: fixed; display:none;">
+                    <span id="page_banner" class="w3-large w3-padding-small w3-show-inline-block" style="overflow: auto; display: none;">
+                    </span>
+                </span>
+                
+                <!--Feedback Panel (deprecated)-->
+                <!--<span id="divFeedback"
+                class="w3-col w3-container l12 w3-animate-zoom w3-padding-small"
+                style="width: 60%; height: 7.5%; margin-left: 24%; margin-right: 5%; position: fixed; overflow: auto;">
+                </span>-->
+       
+                <!--Action Panel-->
+                <div id="divActionBar" class="w3-animate-zoom" style="width: 68%; height: 7.5%; margin-left: 24%; margin-right: 5%; position: fixed;">
+                    <!--<span class="w3-btn w3-round w3-large w3-bold w3-padding-tiny w3-theme-deep-purple w3-text-white w3-hover-white corra-flex-item w3-sixth w3-float-right" title="Return to dashboard." style="height:90%;">Void
+                        <i class="fa fa-trash w3-large"></i>
+                    </span>
+                    <span class="w3-btn w3-round w3-large w3-bold w3-padding-tiny w3-theme-deep-purple w3-text-white w3-hover-white corra-flex-item w3-sixth w3-float-right" title="Return to dashboard." style="height:90%;">Copy
+                        <i class="fa fa-copy w3-large"></i>
+                    </span>
+                    <span class="w3-btn w3-round w3-large w3-bold w3-padding-tiny w3-theme-deep-purple w3-text-white w3-hover-white corra-flex-item w3-sixth w3-float-right" title="Return to dashboard." style="height:90%;">Bookmark
+                        <i class="fa fa-bookmark w3-large"></i>
+                    </span>
+                    <span class="w3-btn w3-round w3-large w3-bold w3-padding-tiny w3-theme-deep-purple w3-text-white w3-hover-white corra-flex-item w3-sixth w3-float-right" title="Return to dashboard" style="height:90%;">Checkout
+                        <i class="fa fa-send w3-large"></i>
+                    </span>-->
+                </div>                
+                
+                <!--Quick Logout-->
+                <span id="spanLogout" class="w3-btn w3-large w3-opennav w3-card-2 w3-theme-deep-purple w3-text-white w3-hover-red corra-logout" title="Return to dashboard." style="width: 5%; height: 7.5%; right: 0;  position: fixed; display: none;">
+                    <i class="fa fa-ellipsis-v w3-xxlarge"></i>
+                </span>
+            </div>
+            
+            <!--Login Form-->
+            <div id="divLogin" class="w3-container w3-padding-jumbo w3-col l6 animate-zoom" style="height: 0%; margin-left: 25%; display: none;">          
+                <!--Begin Login Form-->
+                <div class="w3-container w3-border w3-theme-deep-purple-d2 w3-card-2 w3-center">
+                    <h1 class="w3-container w3-centered">
+                        <span class="w3-xlarge">Core Retail</span>
+                    </h1>
+                    <hr style="width: 50%; margin-left: 25%;">
+                    <h5 class="w3-centered w3-large">Smart App. Smart Storefronts. Smart Services. </h5>
+                </div>
+                <form id="frmLogin" class="w3-container w3-padding-all-16 w3-card-2 w3-theme-deep-purple-l5 w3-border-deep-purple" method="post" action="" onsubmit="return CorraControl.access.login()">                    
+                    <div>
+                        <div class="w3-half w3-padding-small">
+                            <input id="inpUserId" class="w3-input" type="text"
+                                placeholder="S00" title="User ID is 
+                                required" maxlength="3" autofocus required>
+                            <label class="w3-label w3-validate">User ID</label>
+                        </div>
+                        <div class="w3-half w3-padding-small">
+                            <input id="inpUserPin" class="w3-input" type="password" 
+                                   placeholder="1234" title="User Pin is 
+                                   required" maxlength="4" required>
+                            <label class="w3-label w3-validate" 
+                                   title="User Pin is required">User Pin
+                                <i class="fa fa-lock w3-padding-hor-64 w3-text-red"></i>
+                            </label>
+                        
+                            <input id="chkShowPassword" class="w3-check" type="checkbox" 
+                                   onclick="toggleInputMask()" data-for="inpUserPin">
+                            <label for="show-password">Show pin</label>
+                        </div>
+                    </div>
+                    <div class="w3-padding-tiny w3-theme-deep-purple-l5">
+                        <button id="cmdLogin" type="submit" 
+                            class="w3-btn w3-ripple w3-section w3-theme-deep-purple-l3">Log In</button>
+                        <button id="cmdForgotPassword" class="w3-btn w3-ripple w3-
+                                section w3-theme-deep-purple-l4">
+                            <a href="#">Forgot your password?</a></button>
+
+                    </div>
+                </form>
+                <!--End Login Form-->                
+            </div>
+            
+            <!--Left Pane-->
+            <nav id="navLeftPane" class="w3-sidenav w3-theme-deep-purple w3-centered w3-animate-left w3-large" tabindex="0"
+            style="width: 25%; display: none;">                
+                <div class="w3-padding-small w3-light-grey w3-card-2" style="height: 70%; width: 25%; position: fixed;">
+                    <ul id="ulSubmenus" class="w3-padding-top w3-padding-bottom"
+                        style="height: 100%; width: 100%; overflow: auto; list-style-type: none;">
+                    </ul>
+                </div>
+                <!--Other menus-->
+                <div id="dashboardReturnContainer" class="w3-padding-small w3-light-grey w3-card-2" style="height: 10%; width: 25%;bottom: 13%; position: fixed;">
+                    <!--Return to menu page-->
+                    <a id="pMenuPageReturner" class="" 
+                    onclick="ShowUtil.menuPage(true);" 
+                    title="Return to Menu page" style="cursor: pointer;">
+                       <i class="fa fa-reply"></i> Return to Menu Page
+                    </a>
+                </div>
+            </nav>
+                        
+            <!--Handy Links-->
+            <div id="divHandyLinks" class="w3-card-2"
+            style="right: 0%; position: fixed; display: none; z-index: 50;">                
+                <a id="speechToText" href="javascript:void(0)" title="Click to speak, (instead of type)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 corra-handy-button w3-border-0 w3-ripple" accesskey="d" data-list="commands" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-microphone-slash"></i>
+                </a>                
+                <a id="New_RecordLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-record-add  corra-handy-button w3-ripple" accesskey="i" title="Click to start a new transaction [ctrl + w]." tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+                <a id="Exit_PageLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-page-closer corra-handy-button w3-ripple" accesskey="e" title="Click for context summary [ctrl + e]." tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-close"></i>
+                </a>
+            </div>
+            
+            <!--Page Container-->
+            <div id="divPages" class="w3-display-container"
+            tabindex="-1" data-name="Page" style="height: 90%; display: none;">
+                <!--Menu Label-->
+                <h3 id="spanMenuName" class="w3-padding-jumbo w3-center w3-jumbo corra-menu-intro" style="display: none;"></h3>
+                <hr class="corra-menu-intro" style="width: 50%; height: 2.5%; margin-left: 25%;">
+                <h3 id="spanMenuDescription" class="w3-padding-jumbo w3-center w3-xxlarge corra-menu-intro" 
+                style="display: none;"></h3>
+                <!--Model Container-->
+                <div id="divModel" class="corra-model"
+                     style="height: 100%; display: none;">                    
+                    <!--Form(s) here-->                    
+                </div>
+            </div>
+                        
+        </div>
+        
+        <!--Snackbar-->
+        <div id="snackbar" class="w3-padding-large"></div>
+        <!--Infobar-->
+        <div id="infobar" class="w3-white w3-padding-small w3-center w3-large" style="position: fixed; overflow: hidden; top: 16.5%; width: 34%; height: 67.5%;left:33%;border-radius:3%;display:none;">
+            <span class="w3-closebtn infobar-closer w3-white w3-float-right">
+                <i class="fa fa-close"></i>
+            </span>
+            <span class="infobar-caption w3-bold">Customer Info</span>
+            <div class="infobar-text w3-dark-grey w3-small w3-card-4 w3-padding-large" style="overflow:auto;position:relative;top:0%;width:100%;height:100%;">
+            </div>
+        </div>
+        <!-- Progress bar-->
+        <div class="w3-display-container w3-light-grey" style="height: 1%; bottom: -4%;">
+            <div id="divProgressBar" class="w3-container w3-orange w3-center"
+                style="height: 100%; width:0%;">
+            </div>
+        </div>
+        <!--Main Footer - permanently visible-->
+        <div id="divFooter" class="w3-bottom w3-theme-deep-purple-action w3-display-container w3-card-4" style="width: 100%; height: 15%; bottom: 0%;">
+            <!--Subfooter, replaced with special bottom navs-->
+            <!--<div id="divSubFooter" class="w3-display-topleft w3-padding-all-8" 
+                 style="width: 100%; height: 50%;">                
+                <input id="inpRandom" class="w3-input w3-large w3-third w3-padding-large 
+                    w3-theme-deep-purple-l1 w3-border" type="text" 
+                    placeholder="Scan or enter any barcode here to get details" 
+                    title="Scan or enter any barcode here to get details" tabindex="-1">
+                <input id="inpRandomInvoice" class="w3-input w3-large w3-third 
+                    w3-padding-large w3-theme-deep-purple-l2 w3-border" type="text" 
+                    placeholder="Enter a transaction ID to reprint an Invoice" 
+                    title="Enter a transaction ID to reprint an Invoice" tabindex="-1">
+                <input id="inpRandomScan" class="w3-input w3-large w3-third 
+                    w3-padding-large w3-theme-deep-purple-l3 w3-border" type="text" 
+                    placeholder="Enter a tranasction ID to reprint an Invoice" 
+                    title="Scan or enter a barcode here to get its details" 
+                    tabindex="-1">
+            </div>-->
+            
+            <div id="divScroller" class="w3-display-bottomleft scroll-left 
+                 w3-padding-all-16" style="height: 50%; width: 100%; 
+                 overflow: hidden; position: absolute;">
+                <p id="parMarquee" class="w3-large w3-theme-deep-purple-dark w3-margin-0 
+                   w3-padding-small w3-hover-teal">
+                    This is the new Corra POS Web software. You are running version 1.0.0 Release Date: 01 June, 2016.
+                </p>
+            </div>            
+        </div>
+        <!--End Main Footer-->        
+    </body>        
+</html>

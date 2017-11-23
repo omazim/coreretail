@@ -1,0 +1,650 @@
+<!--
+============================
+Screen/Document/Body/HTML
+	Height: 729px
+	Width: 1,366px
+===========================
+Address Bar
+	Height: 4.25% = 31px
+	Width: 1,366px
+Header
+	Height: 8.6% = 63px
+	Width: 1,366px
+Footer
+	Height: 20% = 146px
+	Width: 1,366px
+Top Nav
+	Height: 6% = 44px
+	Width: 1,366px
+Main Div
+	Height: 61% = 445px
+	Width: 1,366px
+==========================
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Core Retail App</title>
+        <meta charset="UTF-8">
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!--Favicon-->
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <!--W3 css-->
+        <link rel="stylesheet" href="css/w3/w3_2.8.css">
+        <link rel="stylesheet" href="css/w3/colors.css">
+        <link rel="stylesheet" href="css/w3/colors-ana.css">
+        <link rel="stylesheet" href="css/w3/colors-camo.css">
+        <link rel="stylesheet" href="css/w3/colors-highway.css">
+        <link rel="stylesheet" href="css/w3/colors-safety.css">
+        <link rel="stylesheet" href="css/w3/colors-signal.css">
+        <link rel="stylesheet" href="css/w3/colors-vivid.css">
+        <link rel="stylesheet" href="css/w3/colors-theme.css">
+        
+        <!--Corra css-->
+        <link rel="stylesheet" href="css/corra/popup.css">
+        <link rel="stylesheet" href="css/corra/flexbox.css">
+        <link rel="stylesheet" href="css/corra/scroller.css">
+        <link rel="stylesheet" href="css/corra/toggle-switch.css">
+        <link rel="stylesheet" href="css/corra/w3-supplementary.css">
+        <link rel="stylesheet" href="css/corra/corra.css">
+        <!--Hover css-->
+        <link rel="stylesheet" href="css/hover/hover.css">
+        
+        <!--Font Awesome-->
+        <link rel="stylesheet" 
+              href="fonts/font-awesome/font-awesome_4.7.0.min.css">        
+        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+        
+        <!--Google fonts-->
+        <link rel="stylesheet" href="fonts/google/fonts.css?family=Raleway">
+        
+        <style>
+            body,h1,h2,h3,h4,h5,h6 {
+                font-family: Raleway, "Sans Serif", "Open Sans Light", Helvetica, Arial,sans-serif,"Microsoft Sans Serif", "Segoe UI", Lato, sans-serif
+            }
+            .w3-navbar,h1,button {
+                font-family: "Montserrat", "sans-serif"
+            }
+        </style>
+        <!--JQuery-->
+        <script src="js/jquery/jquery-3.1.1.min.js"></script>
+        <script src="js/jquery/jquery-color-2.1.2.js"></script>
+        <script src="js/jquery/jquery-ui-1.12.1.min.js"></script>
+        <!--W3Data-->
+        <script src="js/w3data/w3data_1.2.js"></script>        
+        <script src="js/models/init_7.js"></script>
+        <script>
+            function loadScripts (version) {       
+                function getFiles (url) {
+                        return new Promise(function (res, rej) {
+                            fetch(url)
+                            .then(function (response) {
+                                if (response) {
+                                    res(response.json());
+                                }
+                            })
+                            .catch(function (err) {
+                                console.log(err.stack);
+                            });
+                        });
+                    }
+                function getVersion (arr, pattern) {
+                        // we get array of files in a directory.
+                        // we decide which file to load as a script
+                        // by choosing the highest version number
+                        // or the given version number (if any).
+                        // this makes it easy to load any version of app.
+                        // e.g file_1.js
+                        var suffixes = arr.map(function (file) {
+                                var lastIndex = file.lastIndexOf("_"),
+                                    v = new RegExp(/_[0-9]+/g),
+                                    i = v.exec(file);
+                                if (pattern.test(file) && lastIndex >= 0) {
+                                    //console.log(pattern + " matched");
+                                    return (i !== null)? i[0].replace("_",""): 0;
+                                //} else {
+                                //    console.log(pattern + ": no match");
+                                }
+                            }).sort(function (a, b) {
+                                // sort descending.
+                                return (a < b)? 1: -1;
+                            });
+                            //console.log("versions for " + base + " = " + suffixes);
+                        return (suffixes[0])? suffixes[0]: 0;                  
+                    }
+                function getSources (key, arr) {
+                        globlist[key].forEach(function (file) {
+                            var x = file.replace(/[-\/\\^$*+?.()|[\]{}]/g,
+                                "\\$&"),
+                                p = new RegExp("^" + x + "_*[0-9]*.js$"),
+                                v = getVersion(arr, p),
+                                s = (v === 0)? "": "_" + v,
+                                src = "js/" + key + "/" + file + s + ".js";
+                            sources.push({
+                                id: file + s,
+                                src: src,
+                                f: key,// folder
+                                n: file + s// filename
+                            });
+                        });
+                    }
+                function createScripts (sources) {
+                        var promises = [];
+                        return new Promise(function (res, rej) {
+                            sources.forEach(function (src) {
+                                promises.push(
+                                    new Promise(function (res, rej) {
+                                        /*function resolve (id) {
+                                            console.log("resolved " + id);
+                                            res(sources);
+                                        }*/
+                                        var script = document.createElement("SCRIPT");
+                                        script.id = src.id;
+                                        script.src = src.src;
+                                        //script.setAttribute("async", "");
+                                        
+                                        document.head.appendChild(script);
+                                        /*script.onreadystatechange= function () {
+                                            if (this.readyState === "complete") {
+                                                console.log("resolved by complete.");
+                                                resolve(src.id);
+                                            }
+                                        };*/
+                                        script.onload = function () {
+                                            //console.log("resolved by onload.");
+                                            //console.log("resolved " + id);
+                                            console.log("script @ source: " + src.src);
+                                            res(sources);
+                                        };
+                                        script.onerror = function () {
+                                            console.log("failed @ source: " + src.src);
+                                            GLOBLIST.filesErr.push(src);
+                                            rej(sources);
+                                        };
+                                    })
+                                );
+                            });
+                            res(promises);
+                        });
+                    }
+                function getScripts () {    
+                        return new Promise (function (res, rej) {
+                            Object.keys(globlist).forEach(function (key, index, thatArg) {
+                                var qs = "a=web&b=coreretail&c=js&d=" + key;
+                                getFiles(url + qs)
+                                .then(function (arr) {
+                                    getSources(key, arr);
+                                    if (index + 1 === thatArg.length) {
+                                        res(sources);
+                                    }
+                                })
+                                .catch(function (err) {
+                                    console.log("error getting scripts: " + err.stack);
+                                });
+                            });
+                        });
+                    }
+                // glob the latest files in the following directories
+                var globlist = GLOBLIST.files,
+                    url = "./php/controls/s/globber.php?",
+                    sources = [];
+                version = version || 0;
+                return new Promise(function (res, rej) {
+                    getScripts()
+                    .then(function (sources) {
+                        console.log("Creating scripts...");
+                        return createScripts(sources);
+                    })
+                    .then(function (promises) {
+                        return Promise.all(promises);
+                    })
+                    .then(function (sources) {
+                        //if (document.getElementById(sources[0].id)) {
+                        //    console.log("script exists for " + sources[0].id);
+                            res();
+                        //} else {
+                        //    console.log("no script for " + sources[0].id);
+                        //    rej();
+                        //}
+                    })
+                    .catch(function (err) {
+                        console.log("error loading scripts: " + err);
+                    });
+                });
+            }
+            var AbInitio = {};
+            AbInitio.htmlId = {
+                        appContainer: "divApp",
+                        actionsPaneContainer: "divActionsPane",
+                        action_parent: "pActionParent",
+                        commandContainer: "ulCommands",
+                        dialogContainer: "divDialog",
+                        headerContainer: "divHeader",
+                        handyButtonsContainer: "divHandyLinks",
+                        lookupContainer: "divLookup",
+                        loginContainer: "divLogin",
+                        locationContainer: "divLocation",
+                        leftSideNavContainer: "navLeftSideNav",
+                        leftSideNavOpener: "spanLeftSideNavOpener",      
+                        leftSideNavCloser: "aLeftSideNavCloser",
+
+                        modelContainer: "divModel",
+                        menuPageContainer: "divMenus",
+                        menuPaginator: "divMenuPaginator",
+                        menuRow: "divMenuRow",
+                        modalContainer: "divModal",
+                        modalContentContainer: "divModalContent",
+                        modalDialogContainer: "divModalDialog",
+                        modalLookupContainer: "divModalLookup",
+                        modalPromptContainer: "divModalPrompt",
+                        modalProgressContainer: "divModalProgress",
+                        modalWizardContainer: "divModalWizard",
+                        modalGistContainer: "divModalGist",
+                        modalMsgContainer: "divModalMsgContainer",            
+                        menuPageReturner: "pMenuPageReturner",
+                        // modal, popup
+                        modalGist: "spanModalGist",
+
+                        feedbackContainer: "divFeedback",
+                        progressBar: "divProgressBar",
+                        pageContainer: "divPages",
+                        pageBanner: "divPageBanner",
+
+                        submenuContainer: "ulSubmenus",                        
+                        settingContainer: "ulSettings",
+                        shadowContainer: "ulShadows",
+                        summaryContainer: "ulSummary",
+                        // side nav
+                        spanLogout: "spanLogout",
+                        spanMenuName: "spanMenuName",
+                        spanMenuDescription: "spanMenuDescription",
+
+                        tabContainer: "ulTabs",    
+
+                        wizardPrev: "wizardPrev",
+                        wizardNext: "wizardNext",
+                        wizardContainer: "divWizard",
+                        wizardContentContainer: "divWizardContent",
+                        wizardPromptContainer: "divModalPrompt",    
+                        wizardGistContainer: "divWizardGist",
+
+                        // handy buttons
+                        summaryLink: "lnkSummary",
+                        shadowLink: "lnkShadow",
+                        commandLink: "lnkCommand",
+                        helpLink: "lnkHelp",
+                        settingLink: "lnkSetting",
+                        closeLink: "lnkClose"
+                    },
+            AbInitio.htmlClass = {
+                        submenuForm: "corra-form",
+                        formContent: "corra-content",
+                        contentGroup: "corra-group",    
+                        fieldWrap: "corra-wrap",
+                        fieldContainer: "corra-container",
+                        fieldLabel: "corra-label",
+                        groupField: "corra-field",
+
+                        smList: "corra-submenu-list",
+                        smListContainer: "corra-submenu-list-container",
+                        setListContainer: "corra-setting-list-container",    
+                        cmdListContainer: "corra-command-list-container",
+                        summaryListContainer: "corra-summary-list-container",
+                        shadowListContainer: "corra-shadow-list-container",            
+                        flexRow: "corra-flex-container-row",
+                        flexCol: "corra-flex-container-col",
+                        flexItem: "corra-flex-item",
+                        // right pane things
+                        rightPaneUl: "corra-right-pane-ul",
+                        rightPane: "corra-right-pane",     
+                        settingList: "corra-setting-list",
+                        commandList: "corra-command-list",
+                        summaryList: "corra-summary-list",
+                        shadowList: "corra-shadow-list",            
+                        rightPaneList: "corra-right-pane-list",
+                        handyButton: "corra-handy-button",
+                        rightPaneLink: "corra-right-pane-link",            
+                        logoutButton: "corra-logout",
+                        pageCloser: "corra-page-closer",
+                        recordSearch: "corra-record-search",
+                        recordAdd: "corra-record-add",
+                        paneCloser: "corra-pane-closer",
+                        menuName: "corra-menu-name",
+                        menuButton: "corra-menu-button",
+                        menuRow: "corra-menu-row",
+                        menuPageFlipper: "corra-menu-page-flipper",    
+                        menuIntro: "corra-menu-intro",
+
+                        emptyRow: "corra-empty-row",
+                        focusIngress: "corra-row-ingress",
+                        editRow: "corra-row-edit",
+                        delRow: "corra-row-del",
+                        focusRow: "corra-row-focus",
+                        sortRow: "corra-row-sort",
+                        tableControl: "corra-table-control",
+                        table: "corra-table",
+                        tableWrapper: "corra-table-wrapper",
+                        tableContainer: "corra-table-container",
+
+                        // popup
+                        popupText: "popuptext",
+                        popupContainer: "popup",
+
+                        // modal
+                        modalRow: "corra-modal-row",
+                        modalMsg: "corra-modal-msg",
+                        modalOption: "corra-modal-option",
+                        wizardNav: "corra-wizard-nav",
+                        wizardFieldContainer: "corra-wizard-field-container",
+                        // themes
+                        theme: "w3-theme-deep-purple",
+                        // tabs
+                        maintabContainer: "corra-tab-container",
+                        tabAnchor: "corra-tab-anchor",
+                        firstMainTab: "corra-firstmain-tab",
+                        firstSubTab: "corra-firstsub-tab",
+                        mainTab: "corra-main-tab",
+                        subTab: "corra-sub-tab"
+                    };
+            AbInitio.progress = {
+                init: function () {
+                    AbInitio.progress.move(1);
+                },
+                selector: "#" + AbInitio.htmlId.progressBar,
+                move: function (percent, cb) {        
+                    var e = $(this.selector);
+                        //text = (percent === 100)? "done":
+                        //    (percent > 0)? "working...": "";        
+                    cb = cb || function () {};
+                    if (e) {
+                        e.show("fast").animate({
+                            width: percent + "%"
+                        }, "fast", function () {
+                            //e.html(text);
+                            cb();
+                        });
+                    }
+                },
+                done: function (cb) {
+                    var that = this;
+                    function end () {
+                        $(that.selector).addClass("w3-green").removeClass("w3-orange");
+                        AbInitio.pause(function () {
+                            $(that.selector).hide("fast").css("width", "0");
+                            if (typeof cb === "function") {cb();}
+                        });
+                    }
+                    AbInitio.progress.move(100, end);
+                }
+            };            
+            AbInitio.pause = function (cb, len) {
+                window.setTimeout(cb, len);
+            };
+            var GLOBLIST = {
+                files: {
+                    polyfills: ["polyfill"],
+                    classes: ["Fetcher","IDBAccess","Modal","PageModel","MenuPage","PageView"],
+                    services: ["service"],
+                    utils: ["util","typeutil","defutil","htmlutil","modutil","viewutil"],
+                    models: ["idb","model","module"],
+                    views: ["view"],
+                    controllers: ["controller"]                    
+                },
+                filesErr: [],
+                starters: (function () {
+                    var p = "start",
+                        x = ["Module","Model","IDB","View","Control"];
+                    return x.map(function (x) {
+                        return p + x;
+                    });
+                })()    
+            };
+            var crds = "CR";
+            var Def = {},
+                App = {},
+                Module,  
+                Model,
+                View,
+                Control,
+                IDB,
+                DefUtil;
+        </script>    
+        <script>$(document).ready(function () {
+                // start progress bar
+                AbInitio.progress.init();
+                loadScripts()
+                .then(function () {
+                    initServiceWorker();
+                })
+                .then(initApp)
+                .then(function () {                    
+                    Control.events.init();
+                    console.log("events listening");
+                    //View.util.show.login(true);
+                    ViewUtil.show.dashboard({
+                        Username: "Cj",
+                        UserId: "S00",
+                        ShopId: "000",
+                        BizId: "00"
+                    });
+                    console.log("dashboard shown");
+                    AbInitio.progress.move(100);
+                    AbInitio.progress.done();
+                })
+                .catch(function (err) {
+                    console.log("error initializing app | " + GLOBLIST.filesErr + " " + err.stack);
+                    //Service.logError(err);
+                });
+            });
+        </script>
+    </head>
+    
+    <body>
+        <!--Main top-bar is visible across all interfaces-->
+        <!--<ul id="ulTopNav" class="w3-navbar w3-card-2 w3-large w3-grey" style="height:
+        5%; top: 0;">
+            <li><a href="#" class="w3-green w3-hover-white" tabindex="-1">
+                Corra POS</a>
+            </li>
+            <li><a href="#" tabindex="-1">Omazim.com</a></li>
+            <li><a href="#" tabindex="-1">African Storefronts</a></li>
+            <li><a href="#" tabindex="-1">Aprico.com</a></li>
+            <li><a href="#" tabindex="-1">Tananamart.com</a></li>
+            <li class=" w3-right">
+                <button id="cmdGoOnline" type="button" class="w3-btn w3-highway-green                    w3-hover-white" tabindex="-1">Go Online
+                </button>
+            </li>            
+        </ul>-->
+      
+        <!--App-->
+        <div id="divApp" class="w3-display-container" style="height: 80%;">
+            <span class="popup"></span>
+            <!--Header - permanently visible-->
+            <div id="divHeader" class="w3-container w3-padding-tiny w3-theme-deep-purple w3-border-deep-purple w3-border" style="height: 10%; width: 100%;">
+                <!--Submenu/Page Opener-->                
+                <div id="spanLeftSideNavOpener" class="corra-animated-menu-bar-container w3-padding-small" style="width: 5%; height: 7.5%; display: none; left: 0; position: fixed;">
+                    <div class="w3-white corra-animated-menu-bar corra-bar1"></div>
+                    <div class="w3-white corra-animated-menu-bar corra-bar2"></div>
+                    <div class="w3-white corra-animated-menu-bar corra-bar3"></div>
+                </div>
+                <!--Submenu/Page Banner-->
+                <span id="divPageBanner" class="w3-col w3-container l12 w3-animate-zoom w3-padding-small"
+                style="width: 15%; height: 7.5%; margin-left: 4%; position: fixed;">
+                    <span id="page_banner" class="w3-large w3-padding-small w3-show-inline-block" style="overflow: auto; display: none;">
+                        </span>
+                </span>
+                <!--Feedback Panel-->
+                <span id="divFeedback"
+                class="w3-col w3-container l12 w3-animate-zoom w3-padding-small"
+                style="width: 67%; height: 7.5%; margin-left: 24%; margin-right: 5%; position: fixed; overflow: auto;">
+                </span>
+                <!--Quick Logout-->
+                <span id="spanLogout" class="w3-btn w3-large w3-opennav w3-card-2 w3-theme-deep-purple w3-text-white w3-hover-red corra-logout" title="Sign out." style="width: 5%; height: 7.5%; right: 0;  position: fixed; display: none;">
+                    <i class="fa fa-sign-out w3-xxlarge"></i>
+                </span>
+            </div>
+            
+            <!--Login Form-->
+            <div id="divLogin" class="w3-container w3-padding-jumbo w3-col l6 animate-zoom" style="height: 0%; margin-left: 25%; display: none;">          
+                <!--Begin Login Form-->
+                <div class="w3-container w3-border w3-theme-deep-purple-d2 w3-card-2 w3-center">
+                    <h1 class="w3-container w3-centered">
+                        <span class="w3-xlarge">Core Retail</span>
+                    </h1>
+                    <hr style="width: 50%; margin-left: 25%;">
+                    <h5 class="w3-centered w3-large">Smart App. Smart Storefronts. Smart Services. </h5>
+                </div>
+                <form id="frmLogin" class="w3-container w3-padding-all-16 w3-card-2 w3-theme-deep-purple-l5 w3-border-deep-purple" method="post" action="" onsubmit="return CorraControl.access.login()">                    
+                    <div>
+                        <div class="w3-half w3-padding-small">
+                            <input id="inpUserId" class="w3-input" type="text"
+                                placeholder="S00" title="User ID is 
+                                required" maxlength="3" autofocus required>
+                            <label class="w3-label w3-validate">User ID</label>
+                        </div>
+                        <div class="w3-half w3-padding-small">
+                            <input id="inpUserPin" class="w3-input" type="password" 
+                                   placeholder="1234" title="User Pin is 
+                                   required" maxlength="4" required>
+                            <label class="w3-label w3-validate" 
+                                   title="User Pin is required">User Pin
+                                <i class="fa fa-lock w3-padding-hor-64 w3-text-red"></i>
+                            </label>
+                        
+                            <input id="chkShowPassword" class="w3-check" type="checkbox" 
+                                   onclick="toggleInputMask()" data-for="inpUserPin">
+                            <label for="show-password">Show pin</label>
+                        </div>
+                    </div>
+                    <div class="w3-padding-tiny w3-theme-deep-purple-l5">
+                        <button id="cmdLogin" type="submit" 
+                            class="w3-btn w3-ripple w3-section w3-theme-deep-purple-l3">Log In</button>
+                        <button id="cmdForgotPassword" class="w3-btn w3-ripple w3-
+                                section w3-theme-deep-purple-l4">
+                            <a href="#">Forgot your password?</a></button>
+
+                    </div>
+                </form>
+                <!--End Login Form-->                
+            </div>
+            
+            <!--Left Side Navigation-->
+            <nav id="navLeftSideNav" class="w3-sidenav w3-theme-deep-purple w3-card-16 
+            w3-animate-left w3-padding-small w3-large" tabindex="0"
+            style="width: 25%; display: none;">                
+                <ul id="ulSubmenus" class="w3-large w3-padding-large"
+                    style="height: 60%; overflow: auto; list-style-type: none;">
+                </ul>
+                <hr style="width: 50%; margin-left: 25%; margin-right: 25%;">
+                
+                <!--Return to menu page-->
+                <p id="pMenuPageReturner" class="w3-hover-orange w3-center" 
+                onclick="CorraView.util.show.menuPage(true);" 
+                title="Return to Menu page" style="cursor: pointer;">
+                   <i class="fa fa-reply"></i> Return to Menu Page
+                </p>
+            </nav>
+                        
+            <!--Handy Links-->
+            <div id="divHandyLinks" class="w3-card-2"
+            style="right: 0%; position: fixed; display: none; z-index: 50;">                
+                <a id="Command_RightPaneLink" href="javascript:void(0)" title="Click for actions/commands. [ctrl + D]" class="w3-btn-floating-large w3-xxlarge w3-animate-left w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-right-pane-link corra-handy-button" accesskey="d" data-list="commands" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-ellipsis-v"></i>
+                </a>                
+                <a id="Help_RightPaneLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-right-pane-link corra-handy-button" accesskey="h" title="Click for context help [ctrl + H]." data-list="help" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-question"></i>
+                </a>
+                <a id="Setting_RightPaneLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-right-pane-link corra-handy-button" accesskey="t" title="Click for context settings [ctrl + t]." data-list="settings" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <a id="Summary_RightPaneLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-right-pane-link corra-handy-button" accesskey="y" title="Click for context summary [ctrl + y]." data-list="summary" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-info-circle"></i>
+                </a>
+                <a id="Search_RecordLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-record-search corra-handy-button" accesskey="e" title="Click to search for a record [ctrl + r]." data-list="search" tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-search"></i>
+                </a>
+                <a id="New_RecordLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-record-add  corra-handy-button" accesskey="i" title="Click to start a new transaction [ctrl + w]." tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-plus-circle"></i>
+                </a>
+                <a id="Exit_PageLink" href="javascript:void(0)" class="w3-btn-floating-large w3-xxlarge w3-hover-white w3-card-16 w3-theme-deep-purple-d2 hvr-wobble-vertical corra-page-closer corra-handy-button" accesskey="e" title="Click for context summary [ctrl + e]." tabindex="-1" style="bottom: 0%; position: fixed;">
+                    <i class="fa fa-close"></i>
+                </a>
+            </div>
+            
+            <!--Page Container-->
+            <div id="divPages" class="w3-display-container"
+            tabindex="-1" data-name="Page" style="height: 90%; display: none;">
+                <!--Menu Label-->
+                <h3 id="spanMenuName" class="w3-padding-jumbo w3-center w3-jumbo corra-menu-intro" style="display: none;"></h3>
+                <hr class="corra-menu-intro" style="width: 50%; height: 2.5%; margin-left: 25%;">
+                <h3 id="spanMenuDescription" class="w3-padding-jumbo w3-center w3-xxlarge corra-menu-intro" 
+                style="display: none;"></h3>
+                <!--Model Container-->
+                <div id="divModel" class="w3-theme-deep-purple-light corra-model"
+                     style="height: 100%; display: none;">                    
+                    <!--Model Form(s) here-->
+                    
+                </div>
+            </div>
+                        
+        </div>
+                
+        <!-- Progress bar-->
+        <div class="w3-display-container w3-light-grey" style="height: 1%; bottom: -4%;">
+            <div id="divProgressBar" class="w3-container w3-orange w3-center"
+                style="height: 100%; width:0%;">
+            </div>
+        </div>
+        <!--Main Footer - permanently visible-->
+        <div id="divFooter" class="w3-bottom w3-theme-deep-purple-action w3-display-container w3-card-4" style="width: 100%; height: 15%; bottom: 0%;">
+            <div id="divSubFooter" class="w3-display-topleft w3-padding-all-8" 
+                 style="width: 100%; height: 50%;">                
+                <input id="inpRandom" class="w3-input w3-large w3-third w3-padding-large 
+                    w3-theme-deep-purple-l1 w3-border" type="text" 
+                    placeholder="Scan or enter any barcode here to get details" 
+                    title="Scan or enter any barcode here to get details" tabindex="-1">
+                <input id="inpRandomInvoice" class="w3-input w3-large w3-third 
+                    w3-padding-large w3-theme-deep-purple-l2 w3-border" type="text" 
+                    placeholder="Enter a transaction ID to reprint an Invoice" 
+                    title="Enter a transaction ID to reprint an Invoice" tabindex="-1">
+                <input id="inpRandomScan" class="w3-input w3-large w3-third 
+                    w3-padding-large w3-theme-deep-purple-l3 w3-border" type="text" 
+                    placeholder="Enter a tranasction ID to reprint an Invoice" 
+                    title="Scan or enter a barcode here to get its details" 
+                    tabindex="-1">
+            </div>
+            
+            <div id="divScroller" class="w3-display-bottomleft scroll-left 
+                 w3-padding-all-16" style="height: 50%; width: 100%; 
+                 overflow: hidden; position: absolute;">
+                <p id="parMarquee" class="w3-large w3-theme-deep-purple-dark w3-margin-0 
+                   w3-padding-small w3-hover-teal">
+                    This is the new Corra POS Web software. You are running version 1.0.0 Release Date: 01 June, 2016.
+                </p>
+            </div>            
+        </div>
+        <!--End Main Footer-->
+        
+        <script>
+            function regexer (str, pattern) {                
+                // at this point, the line above is the same as: var regex = /#abc#/g;
+                //input = "Hello this is #abc# some #abc# stuff.";
+                //var output = input.replace(regex, "!!");
+                //alert(output); // Hello this is !! some !! stuff.
+                str = escapeRegExp("abc");
+                var regex = new RegExp("#" + str + "#", "g");
+                
+                /*For the specific case in question, notice there is no s (dotall) flag/modifier in JavaScript. Where it is available, it usually forces the dot (.) to match newlines. Here's a possible solution for your case:
+
+    var str = $("#div").html();
+    var regexExpression ="(?!(?:[^<]+>|[^>]+<\\/a>))\\b(" + value + ")\\b";
+    var regex = new RegExp(regexExpression, "i");
+    $("#div").html(str.replace(regex, "<a href='#" + value +"'>" + value + "</a>"));*/
+            }
+        </script>
+    </body>        
+</html>
